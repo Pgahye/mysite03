@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<select id="getByNo1"  parameterType="map" resultType="uservo">  <!-- 객체면 변수 이름으로 해야함 uservo 일경우 vo로, 반환할 타입이 마땅히 없는 경우 map -->
+		<![CDATA[
+		select no,name,email,gender from user where email=#{email } and password=password(#{password })
+		]]>
+	</select>
+
+	<select id="getByNo" parameterType="Long" resultType="uservo">  
+		<![CDATA[
+		select no, name,email, gender from user where no =#{no } 
+		]]>
+	</select>
+	
+	
+	<insert id="insert" parameterType="uservo" >
+	<![CDATA[
+		insert into user values ( null, #{name }, #{email }, password(#{password }), #{gender })
+	]]>
+	</insert>
+	
+	<update id="smallupdate" parameterType="uservo">
+	
+	<![CDATA[
+		
+		update user set name=#{name }, gender =#{gender} where no=#{no }
+	]]>
+	
+	
+	</update>
+	
+	
+	
+	<!-- dynamic sql -->
+	<update id="update" parameterType="uservo">
+	<![CDATA[
+		update user set name=#{name }, gender=#{gender}, password=password(#{password })  where no=#{no }
+	]]>
+
+<!-- <choose>
+	<when test="password != null and password != ''">
+	<![CDATA[
+		
+		 password=password(?) 
+		 
+	]]>	 
+	</when>
+	
+		<if test="password != null and password != ''">
+	<![CDATA[
+		
+		 password=password(?) 
+		 
+	]]>	 
+	</if>
+	</choose> -->	
+	</update>
+
+</mapper>

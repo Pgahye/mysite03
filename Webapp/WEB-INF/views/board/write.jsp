@@ -7,7 +7,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -16,17 +16,16 @@
 		
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board">
-					<input type = "hidden" name = "a" value="write">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
 						<tr>
-							<input type="text" name="no" value="${vo.no }">
-							<input type="text" name="order_no" value="${vo.order_no }">
-							<input type="text" name="group_no" value="${vo.group_no }">
-							<input type="text" name="dep" value="${vo.dep }">
+							<input type="hidden" name="no" value="${vo.no }">
+							<input type="hidden" name="order_no" value="${vo.order_no }">
+							<input type="hidden" name="group_no" value="${vo.group_no }">
+							<input type="hidden" name="dep" value="${vo.dep }">
 							<td class="label">제목</td>
 							<td><input type="text" name="title" value=""></td>
 						</tr>
@@ -38,7 +37,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board">취소</a>
+						<a href="${pageContext.servletContext.contextPath }/board/list">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

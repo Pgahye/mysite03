@@ -39,6 +39,12 @@ public class guestBookVo {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	@Override
+	public String toString() {
+		return "guestBookVo [no=" + no + ", name=" + name + ", pwd=" + pwd + ", message=" + message + ", date=" + date
+				+ "]";
+	}
+	
 	
 	
 	

@@ -7,14 +7,14 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board?a=modify&no=${vo.no}">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/modify/${vo.no}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -33,7 +33,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board">취소</a>
+						<a href="${pageContext.servletContext.contextPath }/board/list">취소</a>
 						<input type="submit" value="수정">
 					</div>
 				</form>				

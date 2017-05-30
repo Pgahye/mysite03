@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="getList" resultType="boardvo" parameterType="map"> <!-- map형을 제외한 파라미터는 parameter으로 가지고 올수 있음  -->
+	
+	<choose>
+		<when test="keyword == null or keyword == ''">
+		<![CDATA[
+	select b.no, b.title, b.hit, b.reg_date, b.group_no, b.order_no, b.dep, u.name as user_name,b.user_no 
+	from board b, user u 
+	where b.user_no=u.no order by b.group_no desc, b.order_no, dep desc LIMIT #{num }, 5  
+			]]>
+		</when>
+	<otherwise>
+	
+		<![CDATA[
+		select b.no, b.title, b.hit, b.reg_date, b.group_no, b.order_no, b.dep, u.name as user_name,b.user_no 
+		from board b, user u 
+		where b.user_no=u.no and (title like '%${keyword }%' or content like '%${keyword }%')
+		order by b.group_no desc, b.order_no, dep desc LIMIT #{num }, 5  
+		]]>
+		</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="getsize" resultType="int" parameterType="string">
+	
+	<choose>
+		<when test="_parameter == null or _parameter == ''">
+		<![CDATA[
+		select count(*) from board
+		]]>
+		</when>
+		<otherwise>
+		<![CDATA[
+		select count(*) from board where (title like '%${_parameter }%' or content like '%${_parameter }%')
+		]]>
+		</otherwise>
+		
+	</choose>	
+	</select>
+
+
+	<select id="getNo" resultType="boardvo">
+		<![CDATA[
+		select no, title, content, group_no, order_no, dep, user_no from board where no=#{no }
+		]]>
+	</select>
+	
+
+
+	<update id="replyupdate" parameterType="boardvo">
+	<![CDATA[
+		UPDATE board AS b INNER JOIN (select no,order_no from board  where order_no >= #{order_no} and group_no =#{group_no} )  AS u ON (b.no = u.no) SET b.order_no = u.order_no+1
+	]]>
+	
+	</update>
+	
+	<insert id="insert" parameterType="boardvo" >
+	
+	<choose> 
+		<when test="no == null"> 
+		<![CDATA[
+		insert into board value(null, #{title } , #{content } , 0, now(), ( select ifnull( max( group_no ), 0 ) + 1 from board a ), 0,0, #{user_no })
+		]]>
+		</when>
+		
+		<otherwise>
+		<![CDATA[
+		insert into board value(null, #{title }, #{content} , 0, now(), #{group_no }, #{order_no } , #{dep } , #{user_no })
+		
+		]]>
+		</otherwise>
+	</choose>	
+	
+	
+	
+	
+	
+	
+	</insert>
+	
+	
+	<select id="get" resultType="boardvo" parameterType="long">
+		<![CDATA[
+		select no, title, content, user_no from board where no= #{no }
+		]]>
+	</select>
+
+<update id="hitupdate" parameterType="boardvo">
+	<![CDATA[
+		update board set hit=hit+1 where no=#{no }
+	]]>
+	
+	</update>
+	
+	
+	<update id="update" parameterType="boardvo">
+	<![CDATA[
+		update board set title=#{title }, content =#{content } , reg_date=now() where no=#{no }
+	]]>
+	
+	</update>
+	
+		<delete id="delete" parameterType="boardvo">
+	<![CDATA[
+	
+		delete from board where no=#{no }
+		
+	]]>
+	</delete>
+
+</mapper>

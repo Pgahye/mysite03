@@ -14,8 +14,8 @@
 		<c:import url="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="${pageContext.servletContext.contextPath }/board/list" method="post">
+					<input type="text" id="keyword" name="keyword" value="${map.keyword }">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -28,10 +28,10 @@
 						<th>&nbsp;</th>
 					</tr>	
 					
-						<c:set var="count" value="${fn:length(list) }"/>
+						<c:set var="count" value="${fn:length(map.list) }"/>
 						
 					
-						<c:forEach items="${list }" var="vo" varStatus="status">
+						<c:forEach items="${map.list }" var="vo" varStatus="status">
 				
 						
 					<tr>
@@ -47,13 +47,13 @@
 						
 						</c:choose>					
 										
-						<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+						<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no}">${vo.title }</a>
 						</td>
 						
 						<td>${vo.user_name }</td>
 						<td>${vo.hit }</td>
 						<td>${vo.reg_date }</td>
-						<td><a href="${pageContext.servletContext.contextPath }/board?a=delete&no=${vo.no}&userno=${vo.user_no}" class="del">삭제</a></td>
+						<td><a href="${pageContext.servletContext.contextPath }/board/delete/${vo.no}" class="del">삭제</a></td>
 					</tr>
 					
 
@@ -69,22 +69,22 @@
 				<div class="pager">
 				
 					<ul>
-						<li><a href="">◀</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${map.prepage }&keyword=${map.keyword }">◀</a></li>
 						
 						<c:forEach var='i' begin='1' end='${sum }'>
-								<li><a href="${pageContext.servletContext.contextPath }/board?num=${i }">${i }</a></li>
+								<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${i }&keyword=${map.keyword }">${i }</a></li>
 						</c:forEach>
 					
 					<!-- <li class="selected">3</li>  -->	 
 					
-						<li><a href="">▶</a></li>
+						<li><a href="${pageContext.servletContext.contextPath }/board/list?page=${map.nextpage }&keyword=${map.keyword }">▶</a></li>
 					</ul>
 					
 					
 				</div>		
 						
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board?a=writeForm" id="new-book">글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

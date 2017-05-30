@@ -18,7 +18,7 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="http://blogfiles1.naver.net/20110211_190/ghqkdwmdgh_1297406827619wVjCB_JPEG/232.jpg">
+					<img id="profile" src="http://postfiles15.naver.net/20110211_190/ghqkdwmdgh_1297406827619wVjCB_JPEG/232.jpg?type=w1">
 					<h2>안녕하세요. gahye의  mysite에 오신 것을 환영합니다.</h2>
 					<p>
 						이 사이트는  웹 프로그램밍 실습과제 예제 사이트입니다.<br>

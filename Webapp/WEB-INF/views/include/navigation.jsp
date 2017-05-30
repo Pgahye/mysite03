@@ -13,25 +13,25 @@
 					<c:when test="${param.menu == 'main'}">
 					<li class="selected"><a href="${pageContext.servletContext.contextPath }/main">gahye</a></li>
 					<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
-					<li><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>
+					<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
 					</c:when>
 					
 					<c:when test="${param.menu == 'guestbook'}">
 					<li><a href="${pageContext.servletContext.contextPath }/main">gahye</a></li>
 					<li class="selected"><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
-					<li><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>
+					<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
 					</c:when>
 					
 					<c:when test="${param.menu == 'board'}">
 					<li><a href="${pageContext.servletContext.contextPath }/main">gahye</a></li>
 					<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
-					<li class="selected"><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>
+					<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>
 					</c:when>
 					
 					<c:otherwise>
 					<li><a href="${pageContext.servletContext.contextPath }/main">gahye</a></li>
 					<li><a href="${pageContext.servletContext.contextPath }/guestbook/list">방명록</a></li>
-					<li><a href="${pageContext.servletContext.contextPath }/board">게시판</a></li>	
+					<li><a href="${pageContext.servletContext.contextPath }/board/list">게시판</a></li>	
 					</c:otherwise>
 					
 					
