@@ -19,6 +19,7 @@ import com.jx372.mysite.service.BoardService;
 import com.jx372.mysite.vo.BoardVo;
 import com.jx372.mysite.vo.UserVo;
 import com.jx372.mysite.vo.guestBookVo;
+import com.jx372.security.Auth;
 
 @Controller
 @RequestMapping("/board")
@@ -49,34 +50,21 @@ public class BoardController {
 	}
 	
 	
-	
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String write(HttpSession session,
+	public String write(
 			@RequestParam( value="page", required=true, defaultValue="1") Integer page, 
 			@RequestParam( value="keyword", required=true, defaultValue="") String keyword  
 
 	) {
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		// 인증 여부 체크 (접근제한)
-		if (authUser == null) {
-
-			return "redirect:/user/login";
-		}
-
 		return "board/write";
-	}
-
+	}  
+	
+	@Auth
 	@RequestMapping(value="/write/{no}", method=RequestMethod.GET) //답변 
-	public String replywrite(HttpSession session, @PathVariable("no") Long no, BoardVo vo,Model model){
+	public String replywrite( @PathVariable("no") Long no, BoardVo vo,Model model){
 		
-		
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		// 인증 여부 체크 (접근제한) --> 어노테이션 방식으로 분리할꺼임 
-		if(authUser ==null){
-			
-			return "redirect:/user/login";
-		}
 		
 		vo = BoardService.getNo(no);
 		model.addAttribute("vo", vo);
@@ -87,19 +75,14 @@ public class BoardController {
 	}
 	
 
-	
+	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HttpSession session, BoardVo vo, @ModelAttribute BoardVo boardVo,
 			@RequestParam(value="no", required=true, defaultValue="") String no){
 
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		// 인증 여부 체크 (접근제한)
-		if (authUser == null) {
-
-			return "redirect:/user/login";
-		}
-
+	
 		vo.setUser_no(authUser.getNo());
 
 		BoardService.insert(boardVo);
@@ -128,16 +111,12 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@Auth
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
 	public String delete(HttpSession session, Model model, @PathVariable("no") Long no, BoardVo vo) {
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		// 인증 여부 체크 (접근제한)
-		if (authUser == null) {
-
-			return "redirect:/board/list";
-		}
-
+	
 		vo = BoardService.getNo(no);
 
 		if (authUser.getNo() == vo.getUser_no()) { // 사용자와 글쓴이가 같을 경우, 사용자 정보 보호를 위해 주소로 주고 받으면 안됨 
@@ -150,15 +129,12 @@ public class BoardController {
 
 	}
 
+	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
 	public String modify(HttpSession session, Model model, @PathVariable("no") Long no) {
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		// 인증 여부 체크 (접근제한)
-		if (authUser == null) {
 
-			return "redirect:/user/login";
-		}
 		
 		BoardVo vo = BoardService.get(no);
 		model.addAttribute("vo", vo);
@@ -173,6 +149,7 @@ public class BoardController {
 
 	}
 	
+	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.POST)
 	public String modify( Model model,
 			@RequestParam(value="title", required=true, defaultValue="")String title,

@@ -34,11 +34,7 @@ public class GuestbookController {
 		
 		List<guestBookVo> list=guestBookService.getList();
 		model.addAttribute("list", list);
-		
-		for(guestBookVo vo : list){
-			
-			//System.out.println(vo);
-		}
+	
 
 		return  "guestbook/list";
 	}

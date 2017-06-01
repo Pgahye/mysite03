@@ -29,6 +29,12 @@ public class UserDao {
 	
 
 	
+	public UserVo get(String email){
+		
+		return sqlSession.selectOne("user.getByEmail", email);
+	}
+	
+	
 	public UserVo get (Long no){ //수정폼
 		
 		//맵을 mresultType으로 사용하는 예제 , 맵은 vo가 없을때 사용한다. 

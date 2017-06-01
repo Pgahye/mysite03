@@ -13,6 +13,15 @@ public class UserService {
 	private UserDao userDao;
 	
 	
+	public boolean existEmail(String email){
+		
+		UserVo userVo = userDao.get(email);
+		
+		return userVo != null;
+		
+	}
+	
+	
 	public void join(UserVo userVo){
 		
 		// 1.db에 사용정보 저장
