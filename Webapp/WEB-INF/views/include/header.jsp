@@ -6,8 +6,15 @@
     	
     	
 <div id="header">
-			<h1>MySite</h1>
+			<h1>${sitevo.title }</h1>
 			<ul>
+			
+				
+			<c:choose>
+			<c:when test='${authUser.role == "ADMIN" }'>
+					<li><a href="${pageContext.servletContext.contextPath }/admin/main">관리자페이지</a><li>
+			</c:when>
+			</c:choose>
 			
 			<c:choose>
 				<c:when test="${empty authUser }">
@@ -20,6 +27,9 @@
 					<li>${authUser.name }님 안녕하세요 ^^;</li>			
 				</c:otherwise>		
 			</c:choose>
+		
+			
+			
 			
 			</ul>
 </div>

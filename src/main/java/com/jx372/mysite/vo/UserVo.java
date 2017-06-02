@@ -6,14 +6,23 @@ public class UserVo {
 	private String name;
 	private String email;
 	private String password;
+	private String role;
 	
 	
+	
+	
+
 	@Override
 	public String toString() {
-		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + "]";
+		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", gender=" + gender + "]";
 	}
-	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public Long getNo() {
 		return no;
 	}

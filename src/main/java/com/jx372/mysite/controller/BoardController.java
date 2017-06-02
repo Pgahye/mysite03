@@ -20,6 +20,7 @@ import com.jx372.mysite.vo.BoardVo;
 import com.jx372.mysite.vo.UserVo;
 import com.jx372.mysite.vo.guestBookVo;
 import com.jx372.security.Auth;
+import com.jx372.security.AuthUser;
 
 @Controller
 @RequestMapping("/board")
@@ -78,10 +79,12 @@ public class BoardController {
 	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HttpSession session, BoardVo vo, @ModelAttribute BoardVo boardVo,
-			@RequestParam(value="no", required=true, defaultValue="") String no){
+			@RequestParam(value="no", required=true, defaultValue="") String no,
+			@AuthUser UserVo authUser
+			){
 
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
 	
 		vo.setUser_no(authUser.getNo());
 
@@ -113,9 +116,10 @@ public class BoardController {
 	
 	@Auth
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
-	public String delete(HttpSession session, Model model, @PathVariable("no") Long no, BoardVo vo) {
+	public String delete(HttpSession session, Model model, @PathVariable("no") Long no, BoardVo vo,
+			@AuthUser UserVo authUser) {
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
 	
 		vo = BoardService.getNo(no);
 
@@ -131,9 +135,10 @@ public class BoardController {
 
 	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
-	public String modify(HttpSession session, Model model, @PathVariable("no") Long no) {
+	public String modify(HttpSession session, Model model, @PathVariable("no") Long no,
+			@AuthUser UserVo authUser) {
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		//UserVo authUser = (UserVo) session.getAttribute("authUser");
 
 		
 		BoardVo vo = BoardService.get(no);

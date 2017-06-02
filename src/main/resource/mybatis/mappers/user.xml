@@ -5,7 +5,7 @@
 
 	<select id="getByNo1"  parameterType="map" resultType="uservo">  <!-- 객체면 변수 이름으로 해야함 uservo 일경우 vo로, 반환할 타입이 마땅히 없는 경우 map -->
 		<![CDATA[
-		select no,name,email,gender from user where email=#{email } and password=password(#{password })
+		select no,name,email,gender,role from user where email=#{email } and password=password(#{password })
 		]]>
 	</select>
 	
@@ -24,7 +24,7 @@
 	
 	<insert id="insert" parameterType="uservo" >
 	<![CDATA[
-		insert into user values ( null, #{name }, #{email }, password(#{password }), #{gender })
+		insert into user values ( null, #{name }, #{email }, password(#{password }), #{gender }, 'USER' )
 	]]>
 	</insert>
 	
