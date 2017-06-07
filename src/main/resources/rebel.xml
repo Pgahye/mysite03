@@ -9,6 +9,8 @@
 	<classpath>
 		<dir name="C:/jx372/workspace/mysite03/target/classes">
 		</dir>
+		<dir name="C:/jx372/workspace/mysite03/target/test-classes">
+		</dir>
 	</classpath>
 
 	<web>
