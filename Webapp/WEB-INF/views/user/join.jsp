@@ -79,7 +79,7 @@ $(function(){
 					
 					<spring:hasBindErrors name="userVo">
 					   <c:if test="${errors.hasFieldErrors('name') }">
-					   		<P style="text-align:left;">
+					   		<P style="text-align:left; color:red;">
 					        <strong>
 					        <spring:message 
 	   						  code="${errors.getFieldError( 'name' ).codes[0] }" 				     
