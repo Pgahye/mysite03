@@ -231,7 +231,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<warSourceDirectory>webapp</warSourceDirectory>
+					<warSourceDirectory>Webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
 
