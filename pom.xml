@@ -239,7 +239,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<url>http://127.0.0.1/manager/text</url>
-					<path>/mysite03</path>
+					<path>/mysite</path>
 					<username>admin</username>
 					<password>admin</password>
 				</configuration>
