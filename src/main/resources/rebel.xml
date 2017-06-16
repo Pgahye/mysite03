@@ -9,18 +9,11 @@
 	<classpath>
 		<dir name="C:/jx372/workspace/mysite03/target/classes">
 		</dir>
-		<dir name="C:/jx372/workspace/mysite03/target/test-classes">
-		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="C:/jx372/workspace/mysite03/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
-			<dir name="C:/jx372/workspace/mysite03/Webapp">
+			<dir name="C:/jx372/workspace/mysite03/webapp">
 			</dir>
 		</link>
 	</web>
