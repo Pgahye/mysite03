@@ -20,7 +20,7 @@
 	<!-- context parameter 설정 전역변수로 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
 	<!-- encoding filter 설정 -->
