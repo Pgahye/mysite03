@@ -1,0 +1,97 @@
+@CHARSET "UTF-8";
+@import "mysite.css";
+*		{ margin:0; padding: 0; }
+#guestbook			{ margin:20px auto;	width:540px; }
+
+#guestbook form { width:100%; }
+
+#guestbook h1{
+	background:url('/mysite03/assets/images/guestbook.png') 0 0 no-repeat;
+	background-size: 25px 25px;
+	margin: 0 0 10px 0;
+	padding : 0 0 0 30px;
+}
+
+#guestbook hr{
+	
+	margin: 30px 0 30px 0;
+}
+
+#tx-content {
+	
+	height: 100px;
+}
+
+#add-form input{
+	
+	height: 40px;
+	
+}
+
+#add-form input, #add-form textarea {
+	display:block; 
+	margin : 0 0 10px 0;
+	outline: none;
+	width: 100%;
+	resize: none;
+}
+
+
+
+#add-form input[type="submit"]	
+	{  
+	border:1px solid #aaa; 
+	padding:10px; 
+	background-color: #FFFFFF;
+	}
+
+#add-form input[type="submit"]:hover{
+	background-color: #80ff00;
+	color : #fff;
+	cursor: bold;
+}
+
+
+ #guestbook ul li strong, #guestbook ul li a {
+	         display:block;	
+ }
+
+#guestbook ul li strong{
+	
+	   margin: 10px 0 0 60px ;
+	   color: #868686;
+}
+
+ #guestbook ul li p{
+ 
+ 	height: 50%;
+ 	border:1px none #868686;
+ 	border-radius:10px;
+ 	width: 86%;
+ 	background-color: #FAFAFA; 
+ 	padding : 10px;
+ 	margin : 10px 0 0 55px;
+ 	
+ }
+
+  #guestbook ul li	{
+  	background:url('/mysite03/assets/images/user.png') 0 center no-repeat;
+  	background-size: 50px 50px;
+	 position:relative;
+	
+
+	  
+    }
+
+  #guestbook ul li a {
+  	
+  		left : 5%;
+  		top: 40%;
+	    position:absolute;
+	    background:url('/mysite03/assets/images/delete.png') 0 0 no-repeat;
+	 	width : 30px;
+	 	height: 30px;
+	 	font-size: 0;
+	
+	    
+  }
