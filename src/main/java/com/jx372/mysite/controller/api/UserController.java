@@ -23,10 +23,12 @@ public class UserController {
 	@RequestMapping("/checkemail")
 	public Map<String, Object> checkEmail(@RequestParam(value="email",required=true, defaultValue="") String email){
 		
-		
+	
+	
 		
 		boolean exist=userService.existEmail(email);
 		
+		System.out.println(exist);
 		
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("result", "success");
