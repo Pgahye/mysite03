@@ -16,154 +16,131 @@
 <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
 
-var View = {
-		
-		focus : function(){
-			
-			$("#email").focus(function(){
-				
-				$(this).css({
-					
-					"border" : "3px solid #044419",
-					"background-Color" : "#90C028"
-					
-				});
-			});
-			
-				$("#email").blur(function(){
-					
-					$(this).css({
-						
-						"border" : "",
-						"background-Color" : "#fff"
-						
-					});
-					
-				});
-				
-			
-			
-		},
-		
-		
-
-		
-		init : function(){
-			
-
-			$("#checkimage").hide();
-			
-			View.focus();
-					
-		},
-		
-		
-		submit : function(){
-			
-			$("#join-form").submit(function(){
-				
-				
-				console.log($("#checkimage").is("visible"));
-				
-				if($("#name").val() == ""){
-					alert("이름은 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
-				
-				if($("#email").val() == ""){
-					alert("이메일은 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
-				
-				
-				if($("#checkimage").is(':visible')==false){
-					
-					alert("email 중복확인을 하셔야 합니다. ");
-					return false; //true일때 이동함 
-					
-				}
-				
-				if($("#password").val() == ""){
-					alert("비밀먼호는 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
-
-				
-				if ($("#agree-prov").is(':checked') ==false){
-					
-					alert("약관에 동의 하셔야 합니다  ");
-					return false;
-				}
-				
-			
-					
-					return true; //true일때 이동함 
-				
-				
-				
-			});
-			
-			
-			
-		}
-		
-		
-		
-}
-
-$(function(){
-
-	View.init();
+window.addEventListener("load", function(){
 	
-
-	
-	View.submit();
+	document.getElementById("checkimage").style.display="none";
 	
 	
-	$("#checkbutton").click(function(){
-	
-		//ajax 통신 시작( 객체로 넣음 )
-		$.ajax( {
-		    url : "/mysite03/user/api/checkemail?email="+$("#email").val(),
-		    type: "get",
-		    dataType: "json",
-		    data: "",
-		//  contentType: "application/json",
-		    success: function( response ){
-		    	
-		    	if(response.data== true){
-		    		alert("이미 존재하는 이메일입니다. ");
-		    		
-		    		View.focus();
-		    		
-		    		
-		    	}else{
-		    		
-		    		alert("사용가능한 이메일입니다. ");
-		    		$("#checkimage").show();
-		    		$("#checkbutton").hide();
-	
-		    		
-		    	}
-		       console.log( response.data );
-		    },
-		    error: function( jqXHR, status, error ){
-		       console.error( status + " : " + error );
-		    }
-
-		   });
-	 
+	document.getElementById("email").addEventListener("focus", function(){ 
 		
+		console.log("focus");
+		this.style.border = "3px solid #044419";
+		this.style.backgroundColor = "#90C028";
 		
-		
-	
 	});
 	
 	
-});
-
+	document.getElementById("join-form").onsubmit = function(){ 
+		
+		
+		var inputEmail = document.getElementById("email");
+		
+		var inputcheck = document.getElementById("agree-prov");
+		
+		var imagecheck= document.getElementById("checkimage").style.display;
+		
+		var passwordcheck = document.getElementById("password");
+		
+		
+		var namecheck =  document.getElementById("name");
+		
+		
+		if(namecheck.value == ""){
+			alert("이름은 필수 항목 입니다. ");
+			return false; //true일때 이동함 
+		}
+		
+		
+		if(inputEmail.value == ""){
+			alert("이메일은 필수 항목 입니다. ");
+			return false; //true일때 이동함 
+		}
+		
+		if(imagecheck == "none"){
+			
+			alert("email 중복확인을 하셔야 합니다. ");
+			return false; //true일때 이동함 
+			
+		}
+		
+		if(passwordcheck.value == ""){
+			alert("비밀먼호는 필수 항목 입니다. ");
+			return false; //true일때 이동함 
+		}
+		
+		
+		if (inputcheck.checked ==false){
+			
+			alert("약관에 동의 하셔야 합니다  ");
+			return false;
+		}
+		
 	
 			
+			return true; //true일때 이동함 
+		
+		
+		};
+	
+	
+	
+	document.getElementById("checkbutton").
+	addEventListener("click", function(){
+		 
+	
+			
+			//ajax 통신 시작( 객체로 넣음 )
+			$.ajax( {
+			    url : "/mysite03/user/api/checkemail?email="+email.value,
+			    type: "get",
+			    dataType: "json",
+			    data: "",
+			//  contentType: "application/json",
+			    success: function( response ){
+			    	
+			    	if(response.data== true){
+			    		alert("이미 존재하는 이메일입니다. ");
+			    		
+			    		document.getElementById("email").focus();
+			    		
+			    		
+			    	}else{
+			    		
+			    		alert("사용가능한 이메일입니다. ");
+			    		document.getElementById("checkimage").style.display="";
+			    		document.getElementById("checkbutton").style.display="none";
+			    		
+			    	}
+			       console.log( response.data );
+			    },
+			    error: function( jqXHR, status, error ){
+			       console.error( status + " : " + error );
+			    }
+
+			   });
+		 
+		 
+		 
+		 
+		 
+	 });
+	 
+	 
+	 
+	 
+	 
+	
+});
+			
+			
+			
+			
+			
+
+
+			
+
+
 
 
 </script>
