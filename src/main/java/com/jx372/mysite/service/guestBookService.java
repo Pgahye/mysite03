@@ -23,6 +23,13 @@ public class guestBookService {
 
 	}
 	
+	
+	public List<guestBookVo> getList(Long startNo) {
+
+		return guestBookDao.getList(startNo);
+
+	}
+	
 	public boolean insert(guestBookVo vo){
 		
 		

@@ -11,6 +11,68 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+
+var render = function(vo){
+	// 상용 app에서는 template 라이브러리를 사용해서 함  ex) ejs, leaf
+	var html = 
+		"<li data-no='"+vo.no+"'>" +
+		"<strong>"+ vo.name + "</strong>" +
+		"<p>"+ vo.message.replace( /\n/gi, "<br>")+"</p>" + 
+		
+
+		"<a href='${pageContext.servletContext.contextPath }/guestbook/delete/"+vo.no +"' data-no=''>삭제</a>"+
+		
+		"</li>";
+		
+	$("#list-guestbook").append(html);	
+		
+		
+		
+		
+		
+};
+
+
+$(function(){
+	$("#btn").click(function(){
+		
+		$.ajax( {
+			url : "${pageContext.request.contextPath }/guestbook/api/list?sno=0",
+			type: "get",
+			dataType: "json", // 받아야되는 데이터 타입 
+			data: "",
+			//contentType: 'application/json', //json 타입으로 데이터를 보낼때 사용함 
+			success: function(response){
+
+					if(response.result ==="fail"){
+						
+						console.error(response.message);
+						return;
+					}
+					
+					// rendering (html 만들기)
+					
+					$.each(response.data, function(index, vo){
+						render(vo);
+					});
+				
+			},
+			error: function( jqXHR, status, e ){
+				console.error( status + " : " + e );
+			}
+			} );
+
+		
+		
+	});
+	
+	
+	
+});
+
+</script>
+
 </head>
 <body>
 	<div id="container">
@@ -32,7 +94,7 @@
 				<c:forEach items="${list }" var="vo" varStatus="status">
 				
 				<ul id="list-guestbook">
-
+					<!-- 
 					<li data-no='${count - status.index }'>
 						<strong>${vo.name }</strong>
 						<p>
@@ -41,11 +103,16 @@
 		
 						<a href='${pageContext.servletContext.contextPath }/guestbook/delete/${vo.no }' data-no=''>삭제</a> 
 					</li>
-
+					 -->
 									
 				</ul>
 				
-			</c:forEach>	
+			</c:forEach>
+			<div style="margin:10px 0; text-align: center">
+			<button id ="btn">다음</button>
+				
+			</div>
+				
 			</div>
 						
 		</div>

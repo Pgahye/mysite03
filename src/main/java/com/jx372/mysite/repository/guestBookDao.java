@@ -40,6 +40,16 @@ public List<guestBookVo> getList(){
 		return list;
 		
 	}
+
+public List<guestBookVo> getList(Long startNo){
+	
+	
+	List<guestBookVo> list=sqlSession.selectList("guestbook.getListsNo");
+
+	
+	return list;
+	
+}
 	
 	public boolean insert(guestBookVo vo) {
 
