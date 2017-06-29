@@ -67,6 +67,15 @@ public class GuestbookController {
 		return "redirect:/guestbook/list";
 	}
 	
+	@RequestMapping(value="/deleteax", method=RequestMethod.POST)
+	public String deleteax(@ModelAttribute guestBookVo vo){
+		
+		guestBookService.delete(vo);
+		
+		return "redirect:/guestbook/ajax";
+	}
+	
+	
 	@RequestMapping("/ajax")
 	public String ajax(Model model){
 		

@@ -44,7 +44,7 @@ public List<guestBookVo> getList(){
 public List<guestBookVo> getList(Long startNo){
 	
 	
-	List<guestBookVo> list=sqlSession.selectList("guestbook.getListsNo");
+	List<guestBookVo> list=sqlSession.selectList("guestbook.getListsNo",startNo );
 
 	
 	return list;

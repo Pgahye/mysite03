@@ -23,7 +23,7 @@ public class GuestbookController {
 	@RequestMapping("/list")
 	public JSONResult list(@RequestParam(value = "sno", required = true, defaultValue="0") Long startNo ){
 		
-		
+
 		List<guestBookVo> list = guestbookService.getList(startNo);
 		
 		return  JSONResult.success(list);

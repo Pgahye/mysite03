@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-
+var isEnd = false;
 var render = function(vo){
 	// 상용 app에서는 template 라이브러리를 사용해서 함  ex) ejs, leaf
 	var html = 
@@ -33,41 +33,68 @@ var render = function(vo){
 		
 };
 
+var fetchList = function(){
+	
+	if(isEnd === true){
+		
+		return ; 
+	}
+	
+	var startNo = 0; 
+	
+	startNo = $("#list-guestbook li").last().data("no") || 0; // 앞이 null일경우 false , 0으로 
+	console.log(startNo);
+	
+	$.ajax( {
+		url : "${pageContext.request.contextPath }/guestbook/api/list?sno="+startNo,
+		type: "get",
+		dataType: "json", // 받아야되는 데이터 타입 
+		data: "",
+		//contentType: 'application/json', //json 타입으로 데이터를 보낼때 사용함 
+		success: function(response){
 
+				if(response.result ==="fail"){
+					
+					console.error(response.message);
+					return;
+				}
+				
+				// detect end 
+				
+				if(response.data.length < 5){
+					
+					isEnd=true;
+					
+					$("#btn").prop("disabled", true);
+				}
+				
+				// rendering (html 만들기)
+				
+				$.each(response.data, function(index, vo){
+					render(vo);
+				});
+			
+		},
+		error: function( jqXHR, status, e ){
+			console.error( status + " : " + e );
+		}
+		} );
+
+	
+	
+}
 $(function(){
+	
 	$("#btn").click(function(){
 		
-		$.ajax( {
-			url : "${pageContext.request.contextPath }/guestbook/api/list?sno=0",
-			type: "get",
-			dataType: "json", // 받아야되는 데이터 타입 
-			data: "",
-			//contentType: 'application/json', //json 타입으로 데이터를 보낼때 사용함 
-			success: function(response){
-
-					if(response.result ==="fail"){
-						
-						console.error(response.message);
-						return;
-					}
-					
-					// rendering (html 만들기)
-					
-					$.each(response.data, function(index, vo){
-						render(vo);
-					});
-				
-			},
-			error: function( jqXHR, status, e ){
-				console.error( status + " : " + e );
-			}
-			} );
-
+		
+		fetchList();
+		
 		
 		
 	});
-	
-	
+	//최초리스트 가지고 오기 
+	fetchList();
 	
 });
 
