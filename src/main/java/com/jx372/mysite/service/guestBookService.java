@@ -30,7 +30,7 @@ public class guestBookService {
 
 	}
 	
-	public boolean insert(guestBookVo vo){
+	public  boolean insert(guestBookVo vo){
 		
 		
 		return guestBookDao.insert(vo);
@@ -39,7 +39,7 @@ public class guestBookService {
 	public boolean delete(guestBookVo vo){
 		
 		
-		return guestBookDao.delete(vo);
+		return 1 == guestBookDao.delete(vo);
 	}
 	
 	

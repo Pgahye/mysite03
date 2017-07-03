@@ -58,11 +58,11 @@ public List<guestBookVo> getList(Long startNo){
 		return count == 1;
 
 	}	
-	public boolean delete(guestBookVo vo){
+	public int delete(guestBookVo vo){
 		
 		int count = sqlSession.delete("guestbook.delete", vo);
 		
-		return count == 1;
+		return count;
 		
 		
 	}

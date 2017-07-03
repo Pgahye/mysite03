@@ -13,8 +13,39 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+
+var messageBox = function(title, message, callback){
+	
+	$( "#dialog" ).attr("title", title);
+	$( "#dialog p" ).text(message);
+	
+	
+	 $( "#dialog" ).dialog({
+	      modal: true,
+	  
+	      
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	 		
+	 		//	,
+	       // Cancel : function(){ 버튼  추가할수도 있음 
+	       // 	console.log();
+	       // }
+	      },
+	      close: callback || function(){ // undefine일 경우 에러발생할수 있으므로 빈 function을 넣어준다. 
+	    	  
+	    	  
+	      }
+	    });
+	
+	
+}
 
 var View = {
 		
@@ -63,39 +94,73 @@ var View = {
 			$("#join-form").submit(function(){
 				
 				
-				console.log($("#checkimage").is("visible"));
 				
-				if($("#name").val() == ""){
-					alert("이름은 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
-				
-				if($("#email").val() == ""){
-					alert("이메일은 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
+				//console.log($("#checkimage").is("visible"));
 				
 				
-				if($("#checkimage").is(':visible')==false){
+				//event.preventDefault();
+				
+				var name = $("#name").val();
+				
+				if(name === ""){
 					
-					alert("email 중복확인을 하셔야 합니다. ");
-					return false; //true일때 이동함 
+					messageBox("회원가입하기 ", "이름은 필수 입력 항목 입니다.  ", function(){$("#name").focus();});
+					//$("#dialog").dialog();
+					//alert("이름은 필수 입력 항목 입니다. ");
+					return false; 
 					
 				}
 				
-				if($("#password").val() == ""){
-					alert("비밀먼호는 필수 항목 입니다. ");
-					return false; //true일때 이동함 
-				}
-
 				
-				if ($("#agree-prov").is(':checked') ==false){
+				var email = $("#email").val();
+				
+				if(email === ""){
 					
-					alert("약관에 동의 하셔야 합니다  ");
-					return false;
+					messageBox("회원가입하기 ", "이메일은 필수 입력 항목 입니다.  ", function(){$("#email").focus();});
+					//$("#dialog").dialog();
+					//alert("이름은 필수 입력 항목 입니다. ");
+					return false; 
+					
+				}
+				
+				var checkimage = $("#checkimage").is(':visible');
+				
+				if(checkimage == false){
+					
+					messageBox("회원가입하기 ", "이메일 중복확인을 해야 합니다.  ", function(){});
+					//$("#dialog").dialog();
+					//alert("이름은 필수 입력 항목 입니다. ");
+					return false; 
+					
 				}
 				
 			
+				var password = $("#password").val();
+			
+				if(password === ""){
+				
+					messageBox("회원가입하기 ", "비밀먼호는 필수 항목 입니다.  ", function(){$("#password").focus();});
+					//$("#dialog").dialog();
+					//alert("이름은 필수 입력 항목 입니다. ");
+					return false; 
+				
+				}
+			
+				
+				var agreeprov = $("#agree-prov").is(':checked');
+				
+				if(agreeprov == false){
+					
+					messageBox("회원가입하기 ", "약관에 동의하셔야 합니다.  ", function(){});
+					//$("#dialog").dialog();
+					//alert("이름은 필수 입력 항목 입니다. ");
+					return false; 
+					
+				}
+				
+		
+				
+					
 					
 					return true; //true일때 이동함 
 				
@@ -114,9 +179,7 @@ var View = {
 $(function(){
 
 	View.init();
-	
 
-	
 	View.submit();
 	
 	
@@ -132,14 +195,14 @@ $(function(){
 		    success: function( response ){
 		    	
 		    	if(response.data== true){
-		    		alert("이미 존재하는 이메일입니다. ");
+		    		
+		    		messageBox("회원가입하기 ", "이미존재하는 이메일 입니다.  ", function(){$("#email").focus();});
 		    		
 		    		View.focus();
 		    		
 		    		
 		    	}else{
-		    		
-		    		alert("사용가능한 이메일입니다. ");
+		    		messageBox("회원가입하기 ", "사용가능한 이메일입니다.  ", function(){});
 		    		$("#checkimage").show();
 		    		$("#checkbutton").hide();
 	
@@ -236,6 +299,13 @@ $(function(){
 					
 				</form:form>
 			</div>
+		</div>
+		
+		
+		
+		
+		<div id="dialog" title="" style="display:none">
+  		<p> </p>
 		</div>
 		
 		
