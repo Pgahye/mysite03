@@ -58,6 +58,20 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+// jquery plugin
+
+(function($){
+	
+	$.fn.hello = function(){
+		
+		console.log($(this).attr("id")+"-----> hello");	
+		
+	}
+	
+	
+})(jQuery);
+
+
 var isEnd = false;
 
 var listItemTemplate = new EJS({url:"${pageContext.request.contextPath }/assets/js/ejs-template/guestbook-list-item.ejs"}); //템플릿을  바인딩 하는 방식 
@@ -147,6 +161,7 @@ var fetchList = function(){
 					
 					console.error(response.message);
 					return;
+					
 				}
 				
 				// detect end 
@@ -167,7 +182,7 @@ var fetchList = function(){
 				var htmls = listTemplate.render(response); // response 객체를 넘김  listTemplate에서 data로 읽음 
 				
 				$("#list-guestbook").append(htmls);
-				
+				$("#list-guestbook").hello();
 			
 		},
 		error: function( jqXHR, status, e ){
@@ -321,7 +336,7 @@ $(function(){
 			data: JSON.stringify(vo), // 자바 객체를 json string로 변경하는 부분 	(반대로도 가능함 )
 			//"name= "+name + "&" + 
 			//"pwd=" + password + "&"+ "message=" + message,
-			//contentType: 'application/json', //json 타입으로 데이터를 보낼때 사용함 !!! 그냥 자바 객체로 주고 받을경우는 필요가 없음 (controller. api 수정필요)
+			//contentType: 'application/json; charset=utf-8', //json 타입으로 데이터를 보낼때 사용함 !!! 그냥 자바 객체로 주고 받을경우는 필요가 없음 (controller. api 수정필요)
 			
 			success: function(response){
 

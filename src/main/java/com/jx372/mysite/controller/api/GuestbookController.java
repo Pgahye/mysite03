@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import com.jx372.mysite.dto.JSONResult;
 import com.jx372.mysite.service.guestBookService;
 import com.jx372.mysite.vo.guestBookVo;
 
+
+//@CrossOrigin({"http://localhost:8088","http://www.naver.com" })
+//@CrossOrigin("*")
 @Controller("guestApiController") //동일한 클래스 이름이 존재하기 때문에 충돌이 발생함 
 @RequestMapping("/guestbook/api")
 public class GuestbookController {
